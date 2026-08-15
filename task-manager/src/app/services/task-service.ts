@@ -29,5 +29,9 @@ export class TaskService {
     },
   ]);
   tasks = this.tasksSignal.asReadonly();
+
+  getTask(id : number) {
+    return this.tasks().find(task => task.id === id);
+  }
 }
 
