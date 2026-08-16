@@ -24,7 +24,7 @@ export class TaskService {
       id: 2,
       title: 'Learn Java  Basics',
       description: 'Understand new Tech in Java 21 ',
-      completed: true,
+      completed: false,
       createdAt: new Date('2026-06-23'),
     },
   ]);

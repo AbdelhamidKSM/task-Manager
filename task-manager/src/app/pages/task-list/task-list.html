@@ -5,7 +5,7 @@
         <a [routerLink]="['/task',task.id]"> {{ task.title }}</a>
       </h3>
       <p> {{ task.description }}</p>
-      <small>Created :{{ task.createdAt }}</small>
+      <small>Created :{{ task.createdAt.toLocaleDateString() }}</small>
     </div>
   </div>
 }
