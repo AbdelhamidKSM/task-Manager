@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 
 export interface Task {
   id: number;
@@ -12,7 +12,7 @@ export interface Task {
   providedIn: 'root',
 })
 export class TaskService {
-  private tasksSignal = signal([
+  private tasksSignal = signal<Task[]>([
     {
       id: 1,
       title: 'Learn Angular Basics',
@@ -27,11 +27,31 @@ export class TaskService {
       completed: false,
       createdAt: new Date('2026-06-23'),
     },
+    {
+      id: 3,
+      title: 'Build a Project',
+      description: 'Create a user manager application',
+      completed: false,
+      createdAt: new Date('2025-12-23'),
+    },
   ]);
   tasks = this.tasksSignal.asReadonly();
 
+  completedTasks = computed(() => {
+    return this.tasksSignal().filter((tasks) => tasks.completed);
+  });
+  activeTasks = computed(() => {
+    return this.tasksSignal().filter((tasks) => !tasks.completed);
+  });
+
   getTask(id: number) {
     return this.tasks().find((task) => task.id === id);
+  }
+
+  deleteTask(id: number) {
+    this.tasksSignal.update((tasks) => {
+      return tasks.filter((task) => task.id !== id);
+    });
   }
 
   addTask(title: string, description: string) {
@@ -44,5 +64,4 @@ export class TaskService {
     };
     this.tasksSignal.update((tasks) => [...tasks, task]);
   }
-
 }
