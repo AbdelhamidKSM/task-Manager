@@ -64,4 +64,9 @@ export class TaskService {
     };
     this.tasksSignal.update((tasks) => [...tasks, task]);
   }
+
+  toggleComplete(id: number) {
+    this.tasksSignal.update(
+      (tasks) =>tasks.map(task => task.id===id ? {... task,completed :!task.completed} : task ),);
+  }
 }

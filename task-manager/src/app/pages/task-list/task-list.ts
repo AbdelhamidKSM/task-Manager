@@ -30,4 +30,8 @@ export class TaskList {
   setFilter(filter: 'all' | 'completed' | 'active') {
     this.filter.set(filter);
   }
+
+  toggleComplete(id: number) {
+    this.taskService.toggleComplete(id);
+  }
 }
