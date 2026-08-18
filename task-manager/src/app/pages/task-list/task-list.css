@@ -107,6 +107,7 @@
 .task-item.completed {
   background: hsl(210 40% 98%);
   opacity: 0.7;
+  text-decoration: line-through;
 }
 
 .task-content {

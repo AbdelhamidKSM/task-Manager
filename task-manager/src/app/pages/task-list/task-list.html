@@ -10,8 +10,8 @@
       <p>No tasks found. Add one to get started!</p>
     </div>
   } @for (task of filteredTasks(); track task.id) {
-  <div class="task-item">
-    <div class="task-content">
+  <div [class.completed]="task.completed" class="task-item" >
+    <div  class="task-content">
       <h3>
         <a [routerLink]="['/task', task.id]">{{ task.title }}</a>
       </h3>
