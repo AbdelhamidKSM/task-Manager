@@ -1,26 +1,39 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { TaskService } from '../../services/task-service';
+import { Task, TaskService } from '../../services/task-service';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task-list',
-  imports: [RouterLink],
+  imports: [RouterLink, FormsModule],
   templateUrl: './task-list.html',
   styleUrl: './task-list.css',
 })
 export class TaskList {
   taskService = inject(TaskService);
   filter = signal<'all' | 'completed' | 'active'>('all');
+  searchTerm = signal('');
+
   filteredTasks = computed(() => {
+    let tasks: Task[];
+
     switch (this.filter()) {
       case 'completed':
-        return this.taskService.completedTasks();
+        tasks= this.taskService.completedTasks();
+        break;
       case 'active':
-        return this.taskService.activeTasks();
+        tasks= this.taskService.activeTasks();
+        break;
 
       default:
-        return this.taskService.tasks();
+        tasks= this.taskService.tasks();
+        break;
     }
+    const term = this.searchTerm().toLowerCase();
+    return term
+      ? tasks.filter((task:Task) => task.title.toLowerCase().includes(term))
+      : tasks;
+
   });
 
   deleteTask(id: number) {

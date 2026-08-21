@@ -1,3 +1,11 @@
+<div class="search-bar">
+  <input
+    type="text"
+    placeholder="Search tasks..."
+    [ngModel]="searchTerm()"
+    (ngModelChange)="searchTerm.set($event)">
+</div>
+
 <div class="filters">
   <button [class.active]="filter() === 'all'" (click)="setFilter('all')">All</button>
   <button [class.active]="filter() === 'active'" (click)="setFilter('active')">Active</button>
